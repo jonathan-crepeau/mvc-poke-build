@@ -3,6 +3,9 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3122;
 
+// SECTION - CONNECT TO DATABASE
+const db = require('./models');
+
 
 // SECTION - SERVE STATIC
 app.use(express.static(`${__dirname}/public`));
@@ -18,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 
-// SECTION - API ENDPOINT ROUTES
+// ANCHOR - API ENDPOINT ROUTES
 
 // Documentation Route
 app.get('/api/v1', (req, res) => {
@@ -34,9 +37,19 @@ app.get('/api/v1', (req, res) => {
     res.json(doc);
 });
 
-// Pokemon Routes
 
-// Trainer Routes
+// SECTION - Pokemon Routes
+// (GET) - Index All Pokemon
+app.get('/api/v1/pokemon', (req, res) => {
+    res.json({message: 'pokemon index'});
+});
+
+// (POST) - Create Pokemon
+app.post('/api/v1/pokemon', (req, res) => {
+    res.json({message: 'pokemon create', body: req.body});
+});
+
+// SECTION - Trainer Routes
 
 
 // SECTION - 404 ROUTE
