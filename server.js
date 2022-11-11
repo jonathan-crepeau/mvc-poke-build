@@ -1,11 +1,13 @@
+// SECTION - SETUP
+// External Modules
 const express = require('express');
 const path = require('path');
-const app = express();
-const PORT = process.env.PORT || 3122;
-
-// SECTION - CONNECT TO DATABASE
+// Internal Modules
 const db = require('./models');
-
+// Instanced Modules
+const app = express();
+// Configuration Variables
+const PORT = process.env.PORT || 3122;
 
 // SECTION - SERVE STATIC
 app.use(express.static(`${__dirname}/public`));
@@ -41,8 +43,20 @@ app.get('/api/v1', (req, res) => {
 // SECTION - Pokemon Routes
 // (GET) - Index All Pokemon
 app.get('/api/v1/pokemon', (req, res) => {
-    res.json({message: 'pokemon index'});
-});
+    db.Pokemon.find({}, (err, allPokemon) => {
+        if (err) return res.status(500).json({
+            message: 'Something went wrong.',
+            error: err,
+        });
+        const responseObj = {
+            status: 200,
+            data: allPokemon,
+            length: allPokemon.length,
+            requestedAt: new Date().toLocaleString()
+        };
+        res.status(200).json(responseObj);
+    });
+});;
 
 // (POST) - Create Pokemon
 app.post('/api/v1/pokemon', (req, res) => {
