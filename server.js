@@ -101,11 +101,19 @@ app.get('/api/v1/pokemon/:id',(req, res) => {
 
 // (PUT) - Update Pokemon
 app.put('/api/v1/pokemon/:id', (req, res) => {
-    res.json({
-        message: 'Pokemon updated',
-        params: req.params,
-        body: req.body,
-    });
+    db.Pokemon.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true },
+        (err, updatedPokemon) => {
+            if (err) return res.status(400).json({
+                message: "Something went wrong.",
+                error: err,
+            });
+            res.json(updatedPokemon);
+        }
+
+    );
 });
 
 // (DELETE) - Delete Pokemon
