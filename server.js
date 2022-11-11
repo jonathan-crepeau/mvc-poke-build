@@ -49,6 +49,28 @@ app.post('/api/v1/pokemon', (req, res) => {
     res.json({message: 'pokemon create', body: req.body});
 });
 
+// (GET) - Show Pokemon (by ID)
+app.get('/api/v1/pokemon/:id',(req, res) => {
+    res.json({ message: "show pokemon by id", params: req.params });
+});
+
+// (PUT) - Update Pokemon
+app.put('/api/v1/pokemon/:id', (req, res) => {
+    res.json({
+        message: 'Pokemon updated',
+        params: req.params,
+        body: req.body,
+    });
+});
+
+// (DELETE) - Delete Pokemon
+app.delete('/api/v1/pokemon', (req, res) => {
+    res.json({
+        message: 'Pokemon deleted',
+        params: req.params,
+    });
+});
+
 // SECTION - Trainer Routes
 
 
