@@ -3,7 +3,7 @@
 const express = require('express');
 const path = require('path');
 // Internal Modules
-const db = require('./models');
+const routes = require('./routes');
 // Instanced Modules
 const app = express();
 // Configuration Variables
@@ -54,75 +54,76 @@ app.get('/api/v1', (req, res) => {
 
 
 // SECTION - Pokemon Routes
-// (GET) - Index All Pokemon
-app.get('/api/v1/pokemon', (req, res) => {
-    db.Pokemon.find({}, (err, allPokemon) => {
-        if (err) return res.status(500).json({
-            message: 'Something went wrong.',
-            error: err,
-        });
-        const responseObj = {
-            status: 200,
-            data: allPokemon,
-            length: allPokemon.length,
-            requestedAt: new Date().toLocaleString()
-        };
-        res.status(200).json(responseObj);
-    });
-});
+app.use('/api/v1/pokemon', routes.pokemon);
 
-// (POST) - Create Pokemon
-app.post('/api/v1/pokemon', (req, res) => {
-    const newPokemon = req.body;
-    db.Pokemon.create(newPokemon, (err, createdPokemon) => {
-        if (err) return res.status(500).json({
-            message: 'Something went wrong.',
-            error: err,
-        });
-        const responseObj = {
-            status: 200,
-            data: createdPokemon,
-            requestedAt: new Date().toLocaleString()
-        };
-        res.status(200).json(responseObj);
-    });
-});
+// // (GET) - Index All Pokemon
+// app.get('/api/v1/pokemon', (req, res) => {
+//     db.Pokemon.find({}, (err, allPokemon) => {
+//         if (err) return res.status(500).json({
+//             message: 'Something went wrong.',
+//             error: err,
+//         });
+//         const responseObj = {
+//             status: 200,
+//             data: allPokemon,
+//             length: allPokemon.length,
+//             requestedAt: new Date().toLocaleString()
+//         };
+//         res.status(200).json(responseObj);
+//     });
+// });
 
-// (GET) - Show Pokemon (by ID)
-app.get('/api/v1/pokemon/:id',(req, res) => {
-    db.Pokemon.findById(req.params.id, (err, foundPokemon) => {
-        if (err) return res.status(400).json({
-            message: 'Something went wrong',
-            error: err,
-        });
-        res.json(foundPokemon);
-    });
-});
+// // (POST) - Create Pokemon
+// app.post('/api/v1/pokemon', (req, res) => {
+//     const newPokemon = req.body;
+//     db.Pokemon.create(newPokemon, (err, createdPokemon) => {
+//         if (err) return res.status(500).json({
+//             message: 'Something went wrong.',
+//             error: err,
+//         });
+//         const responseObj = {
+//             status: 200,
+//             data: createdPokemon,
+//             requestedAt: new Date().toLocaleString()
+//         };
+//         res.status(200).json(responseObj);
+//     });
+// });
 
-// (PUT) - Update Pokemon
-app.put('/api/v1/pokemon/:id', (req, res) => {
-    db.Pokemon.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true },
-        (err, updatedPokemon) => {
-            if (err) return res.status(400).json({
-                message: "Something went wrong.",
-                error: err,
-            });
-            res.json(updatedPokemon);
-        }
+// // (GET) - Show Pokemon (by ID)
+// app.get('/api/v1/pokemon/:id',(req, res) => {
+//     db.Pokemon.findById(req.params.id, (err, foundPokemon) => {
+//         if (err) return res.status(400).json({
+//             message: 'Something went wrong',
+//             error: err,
+//         });
+//         res.json(foundPokemon);
+//     });
+// });
 
-    );
-});
+// // (PUT) - Update Pokemon
+// app.put('/api/v1/pokemon/:id', (req, res) => {
+//     db.Pokemon.findByIdAndUpdate(
+//         req.params.id,
+//         req.body,
+//         { new: true },
+//         (err, updatedPokemon) => {
+//             if (err) return res.status(400).json({
+//                 message: "Something went wrong.",
+//                 error: err,
+//             });
+//             res.json(updatedPokemon);
+//         }
+//     );
+// });
 
-// (DELETE) - Delete Pokemon
-app.delete('/api/v1/pokemon/:id', (req, res) => {
-    db.Pokemon.findByIdAndDelete(req.params.id, (err, deletedPokemon) => {
-        if (err) return res.status(400).json(err);
-        res.json(deletedPokemon);
-    })
-});
+// // (DELETE) - Delete Pokemon
+// app.delete('/api/v1/pokemon/:id', (req, res) => {
+//     db.Pokemon.findByIdAndDelete(req.params.id, (err, deletedPokemon) => {
+//         if (err) return res.status(400).json(err);
+//         res.json(deletedPokemon);
+//     })
+// });
 
 // SECTION - Trainer Routes
 
