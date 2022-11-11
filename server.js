@@ -22,6 +22,16 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/views/index.html'));
 });
 
+// List of All Pokemon Route
+app.get('/pokemon', (req, res) => {
+    res.sendFile(path.join(__dirname, '/views/listPokemon.html'))
+});
+
+// Add A Pokemon w/ Form Route
+app.get('/pokemon/new', (req, res) => {
+    res.sendFile(path.join(__dirname, '/views/addPokemon.html'))
+});
+
 
 // ANCHOR - API ENDPOINT ROUTES
 
@@ -56,11 +66,23 @@ app.get('/api/v1/pokemon', (req, res) => {
         };
         res.status(200).json(responseObj);
     });
-});;
+});
 
 // (POST) - Create Pokemon
 app.post('/api/v1/pokemon', (req, res) => {
-    res.json({message: 'pokemon create', body: req.body});
+    const newPokemon = req.body;
+    db.Pokemon.create(newPokemon, (err, createdPokemon) => {
+        if (err) return res.status(500).json({
+            message: 'Something went wrong.',
+            error: err,
+        });
+        const responseObj = {
+            status: 200,
+            data: createdPokemon,
+            requestedAt: new Date().toLocaleString()
+        };
+        res.status(200).json(responseObj);
+    });
 });
 
 // (GET) - Show Pokemon (by ID)
