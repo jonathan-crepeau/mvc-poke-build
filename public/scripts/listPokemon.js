@@ -1,5 +1,6 @@
 console.log('listPokemon.js reporting for duty..');
 const listing = document.getElementById('pokemon-list');
+const lookupList = document.getElementById('lookup-list');
 
 const handleClick = (event) => {
     if (event.target.classList.contains('delete')) {
@@ -28,7 +29,8 @@ const handleClick = (event) => {
 
 const renderLookup = (pokemonObj) => {
     for (x in pokemonObj) {
-        console.log(pokemonObj[x])
+            const infoItem = `<li>${x}: ${pokemonObj[x]}</li>`;
+            lookupList.insertAdjacentHTML('beforebegin', infoItem);
     }
 }
 
