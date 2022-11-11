@@ -9,12 +9,15 @@ const app = express();
 // Configuration Variables
 const PORT = process.env.PORT || 3122;
 
+
 // SECTION - SERVE STATIC
 app.use(express.static(`${__dirname}/public`));
+
 
 // SECTION - MIDDLEWARE
 // This creates our request.body
 app.use(express.json());
+
 
 // SECTION - VIEW ROUTES
 // Root Route
@@ -100,11 +103,11 @@ app.put('/api/v1/pokemon/:id', (req, res) => {
 });
 
 // (DELETE) - Delete Pokemon
-app.delete('/api/v1/pokemon', (req, res) => {
-    res.json({
-        message: 'Pokemon deleted',
-        params: req.params,
-    });
+app.delete('/api/v1/pokemon/:id', (req, res) => {
+    db.Pokemon.findByIdAndDelete(req.params.id, (err, deletedPokemon) => {
+        if (err) return res.status(400).json(err);
+        res.json(deletedPokemon);
+    })
 });
 
 // SECTION - Trainer Routes

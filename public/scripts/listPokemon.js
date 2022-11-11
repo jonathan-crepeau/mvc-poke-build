@@ -1,6 +1,22 @@
 console.log('listPokemon.js reporting for duty..');
 const listing = document.getElementById('pokemon-list');
 
+
+listing.addEventListener('click', (event) => {
+    if (event.target.classList.contains('delete')) {
+        const pokemonID = event.target.parentNode.id;
+
+        fetch(`/api/v1/pokemon/${pokemonID}`, {
+            method: 'DELETE',
+        })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .then(() => showAllPokemon())
+            .catch((err) => console.log(err));
+            
+    };
+});
+
 const render = (pokemonArr) => {
     // console.log(pokemonArr.data);
     listing.innerHTML = '';

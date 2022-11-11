@@ -1,17 +1,8 @@
 console.log('addPokemon.js reporting for duty..');
 const listBtn = document.getElementById('add-pokemon-btn');
 
-function handleClick() {
-
-     // NOTE - Upgrade: add all 'xxxValue' names into an array. for loop cycles through each div within the form loop; selects the input name and matches it to the correct array value.
-    //for loop that cycles through each div within the form and selects the <input> id name and adds it..
-    
-    // const valueTitles = ['nameInput', 'typeInput'];
-
-    // for (let i = 0; i < valueTitles.length; i++) {
-    //     console.log('')
-    //     console.log(valueTitles[i]);
-    // };
+async function handleClick(event) {
+    event.preventDefault();
 
     const nameInput = document.getElementById('pokemon-name');
     const typeInput = document.getElementById('pokemon-type');
@@ -31,9 +22,9 @@ function handleClick() {
         weakness: weaknessInput.value
     };
 
-    console.log(newPokemon);
+    // console.log(newPokemon);
 
-    fetch('/api/v1/pokemon', {
+    await fetch('/api/v1/pokemon', {
         method: 'POST',
         headers: {
            'Content-Type': 'application/json', 
@@ -42,7 +33,9 @@ function handleClick() {
     })
         .then((response) => response.json())
         .then((data) => console.log(data))
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err));    
+    
+    
 };
 
 listBtn.addEventListener('click', handleClick);
