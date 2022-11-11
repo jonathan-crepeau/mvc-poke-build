@@ -90,7 +90,13 @@ app.post('/api/v1/pokemon', (req, res) => {
 
 // (GET) - Show Pokemon (by ID)
 app.get('/api/v1/pokemon/:id',(req, res) => {
-    res.json({ message: "show pokemon by id", params: req.params });
+    db.Pokemon.findById(req.params.id, (err, foundPokemon) => {
+        if (err) return res.status(400).json({
+            message: 'Something went wrong',
+            error: err,
+        });
+        res.json(foundPokemon);
+    });
 });
 
 // (PUT) - Update Pokemon
