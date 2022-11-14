@@ -1,0 +1,1 @@
+console.log('addTrainer.js reporting for duty...');

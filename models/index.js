@@ -10,4 +10,5 @@ mongoose.connect(uri, {
 
 module.exports = {
     Pokemon: require('./Pokemon'),
+    Trainer: require('./Trainer')
 }
