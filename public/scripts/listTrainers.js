@@ -4,9 +4,16 @@ const trainerList = document.getElementById('trainer-list');
 const handleClick = (event) => {
     if (event.target.classList.contains('delete')) {
         console.log('Delete button clicked...');
+        const trainerID = event.target.parentNode.id
+        fetch(`http://localhost:3122/api/v1/trainers/${trainerID}`, {
+            method: 'DELETE'
+        })
+            .then((response) => response.json())
+            .then((data) => console.log(data))
+            .then(() => showAllTrainers())
+            .catch((error) => console.log(error));
     }
-
-}
+};
 
 trainerList.addEventListener('click', handleClick);
 

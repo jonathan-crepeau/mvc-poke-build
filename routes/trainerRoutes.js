@@ -12,5 +12,6 @@ router.get('/', controllers.trainer.index);
 router.post('/', controllers.trainer.create)
 
 // Delete Trainer
+router.delete('/:id', controllers.trainer.destroy)
 
 module.exports = router;

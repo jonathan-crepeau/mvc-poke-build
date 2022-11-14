@@ -27,9 +27,21 @@ const create = (req, res) => {
     })
 }
 
+// DELETE - Destroy Trainer
+const destroy = (req, res) => {
+    db.Trainer.findByIdAndDelete(req.params.id, (err, deletedTrainer) => {
+        if (err) return res.status(500).json({
+            message: 'Something went wrong here...',
+            error: err,
+        });
+        res.json(deletedTrainer);
+    })
+}
+
 
 module.exports = {
     test,
     create,
-    index
+    index,
+    destroy,
 }
