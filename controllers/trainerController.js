@@ -8,9 +8,18 @@ const test = (req, res) => {
 // GET - Index All Trainers
 
 // POST - Add Trainer
-
+const create = (req, res) => {
+    db.Trainer.create(req.body, (err, newTrainer) => {
+        if (err) return res.status(500).json({
+            message: 'Something went wrong here...',
+            error: err,
+        });
+        res.json(newTrainer);
+    })
+}
 
 
 module.exports = {
-    test
+    test,
+    create
 }
