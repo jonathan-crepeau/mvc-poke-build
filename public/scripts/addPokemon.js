@@ -24,7 +24,7 @@ async function handleClick(event) {
 
     // console.log(newPokemon);
 
-    await fetch('/api/v1/pokemon', {
+    await fetch('http://localhost:3122/api/v1/pokemon', {
         method: 'POST',
         headers: {
            'Content-Type': 'application/json', 

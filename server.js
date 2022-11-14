@@ -38,6 +38,13 @@ app.get('/pokemon/new', (req, res) => {
 });
 
 // NOTE - Trainer View Routes
+
+// List of All Trainers
+app.get('/trainer', (req, res) => {
+    res.sendFile(path.join(__dirname, '/views/listTrainers.html'));
+});
+
+// Add New Trainer w/ Form
 app.get('/trainer/new', (req, res) => {
     res.sendFile(path.join(__dirname, '/views/addTrainer.html'));
 });

@@ -6,6 +6,15 @@ const test = (req, res) => {
 };
 
 // GET - Index All Trainers
+const index = (req, res) => {
+    db.Trainer.find({}, (err, foundTrainers) => {
+        if (err) return res.status(500).json({
+            message: 'Something went wrong here...',
+            error: err,
+        });
+        res.json(foundTrainers);
+    });
+};
 
 // POST - Add Trainer
 const create = (req, res) => {
@@ -21,5 +30,6 @@ const create = (req, res) => {
 
 module.exports = {
     test,
-    create
+    create,
+    index
 }

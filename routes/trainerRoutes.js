@@ -5,7 +5,12 @@ const controllers = require('../controllers');
 // test
 router.get(`/test`, controllers.trainer.test);
 
-// POST - Add Pokemon
+// GET - Index all Trainers
+router.get('/', controllers.trainer.index);
+
+// POST - Add Trainer
 router.post('/', controllers.trainer.create)
+
+// Delete Trainer
 
 module.exports = router;

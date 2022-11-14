@@ -6,7 +6,7 @@ const handleClick = (event) => {
     if (event.target.classList.contains('delete')) {
         const pokemonID = event.target.parentNode.id;
 
-        fetch(`/api/v1/pokemon/${pokemonID}`, {
+        fetch(`http://localhost:3122/api/v1/pokemon/${pokemonID}`, {
             method: 'DELETE',
         })
             .then((response) => response.json())
@@ -18,7 +18,7 @@ const handleClick = (event) => {
         console.log('lookup clicked.');
         const pokemonId = event.target.parentNode.id;
 
-        fetch(`/api/v1/pokemon/${pokemonId}`, {
+        fetch(`http://localhost:3122/api/v1/pokemon/${pokemonId}`, {
             method: 'GET',
         })
             .then((response) => response.json())
@@ -50,7 +50,7 @@ const render = (pokemonArr) => {
     }
 };
 
-const showAllPokemon = (pokemonArr) => {
+const showAllPokemon = () => {
 
     fetch('/api/v1/pokemon', {
         method: 'GET',
